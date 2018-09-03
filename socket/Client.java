@@ -45,7 +45,7 @@ public class Client {
 			 * 127.0.0.1或localhost都是用于表示本机的IP地址
 			 */
 			System.out.println("正在连接服务端.......");
-			socket = new Socket("localhost",8088);
+			socket = new Socket("176.53.9.10",8088);
 			System.out.println("连接成功！");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -63,7 +63,7 @@ public class Client {
 			 */
 			OutputStream out = socket.getOutputStream();
 			OutputStreamWriter osw = new OutputStreamWriter(out,"UTF-8");
-            BufferedWriter bw = new BufferedWriter(osw);
+            BufferedWriter bw = new BufferedWriter(osw);   
             PrintWriter pw = new PrintWriter(bw,true);  //第二个参数为true时调用flush()将缓冲区字节调出或者添加close()
            
             Scanner sca = new Scanner(System.in);
@@ -72,7 +72,7 @@ public class Client {
             while(true) {
             	System.out.println("输入：");
             	line = sca.nextLine();
-            pw.println("客户说："+line);
+            pw.println("丁鹏："+line);
             }
             
 			

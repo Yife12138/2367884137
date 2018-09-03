@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.logging.Handler;
 
 public class Server {
 	/*
@@ -55,22 +56,18 @@ public class Server {
 			 * 通过该Socket就可以与刚建立连接的客户端进行交互
 			 * 
 			 */
+			while(true){
 			System.out.println("等待客户端连接......");
 			Socket socket = server.accept();
 			System.out.println("一个客户端已连接！");
-			
-			/*
-			 * 通过Scoket获取输入流，读取客户端发送过来的数据
-			 */
-			InputStream in = socket.getInputStream();
-			InputStreamReader isr = new InputStreamReader(in,"UTF-8");
-			BufferedReader br = new BufferedReader(isr);
-			
-			String line = null;
-			while((line = br.readLine())!=null) {
-			System.out.println("13132132312");
-			System.out.println("客户端："+line);
+			//启动一个线程来处理该客户端
+			ClientHandler handler = new ClientHandler(socket);
+			Thread t = new Thread(handler);
+			t.start();
 			}
+			
+			
+			
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -81,6 +78,43 @@ public class Server {
 		Server server = new Server();
 		server.start();
 	}
+	/*
+	 * 该线程任务是与指定的Socket对应的客户端进行数据交互
+	 */
+	private class ClientHandler implements Runnable{
+
+		private Socket socket;
+		
+		public ClientHandler(Socket socket) {
+			this.socket = socket;
+		}
+		
+		public void run() {
+			System.out.println("启动了一个线程处理客户端信息！");
+			try {
+				/*
+				 * 
+				 * 通过Scoket获取输入流，读取客户端发送过来的数据
+				 */
+				
+				InputStream in = socket.getInputStream();
+				InputStreamReader isr = new InputStreamReader(in,"UTF-8");
+				BufferedReader br = new BufferedReader(isr);
+				
+				String line = null;
+				while((line = br.readLine())!=null) {
+					                   
+				System.out.println("客户端"+line);
+				}
+			} catch (Exception e) {
+                 e.printStackTrace();
+			}
+			
+		}
+		
+		
+	}
+	
 }
 
 
