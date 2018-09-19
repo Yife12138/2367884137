@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<servlets>
+   <serclet url="/myweb/reg" className="com.webserver.servlets.RegServlet"></serclet>
+   <serclet url="/myweb/login" className="com.webserver.servlets.LoginServlet"></serclet>
+   <serclet url="/myweb/update" className="com.webserver.servlets.UpdateServlet"></serclet>
+</servlets>
+
+
+
+
+
+
+
+
+
+
+
+
